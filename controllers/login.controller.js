@@ -49,18 +49,20 @@ const signUp = asyncWrapper (async(req,res)=>{
 })
 
 const verifiedUser= asyncWrapper(async(req,res)=>{
-    const {jwtToken} = req.cookies;
     const {email} = req.body;
-    console.log(email);
-    console.log(jwtToken);
+   const authHeader = req.headers.authorization;
 
-    // if (!jwtToken) {
-    //     return res.status(401).json({ message: 'No token found. Please log in.' });
-    //   }
+   
 
-    //   const jwtTokenData = jwt.verify(jwtToken, jwtSecret);
+    const token = authHeader.split(' ')[1];
 
-      return res.status(200).json({ email });
+    console.log(token);
+
+    const decodedToken =  jwt.verify(token,jwtSecret);
+    console.log(decodedToken);
+    
+
+    return res.status(200).json({ email });
 })
 
 export {login,signUp,verifiedUser}
