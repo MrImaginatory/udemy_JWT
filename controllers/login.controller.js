@@ -1,5 +1,8 @@
 import { asyncWrapper } from "../utils/asyncWrapper.util.js"
 import userSchema from "../models/user.model.js";
+import jwt from 'jsonwebtoken';
+
+const jwtSecret = process.env.JWT_SECRET;
 
 const login = asyncWrapper(async(req,res)=>{
     const {email,password} = req.body;
@@ -13,7 +16,13 @@ const login = asyncWrapper(async(req,res)=>{
     if(userExists){
         const isMatched = await userExists.comparePassword(password);
         if(isMatched){
-            return res.status(200).json({message:"User Logged In SuccessFully"});
+            const token = jwt.sign({id:userExists._id,email:userExists.email},jwtSecret,{expiresIn:'1d'});
+            res.cookie('jwtToken', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 24 * 60 * 60 * 1000,
+              })
+            return res.status(200).json({message:"User Logged In SuccessFully",jwtToken:token});
         }
     }
 
@@ -39,4 +48,19 @@ const signUp = asyncWrapper (async(req,res)=>{
     return res.status(200).json({message:"User created Successfully"});
 })
 
-export {login,signUp}
+const verifiedUser= asyncWrapper(async(req,res)=>{
+    const {jwtToken} = req.cookies;
+    const {email} = req.body;
+    console.log(email);
+    console.log(jwtToken);
+
+    // if (!jwtToken) {
+    //     return res.status(401).json({ message: 'No token found. Please log in.' });
+    //   }
+
+    //   const jwtTokenData = jwt.verify(jwtToken, jwtSecret);
+
+      return res.status(200).json({ email });
+})
+
+export {login,signUp,verifiedUser}
