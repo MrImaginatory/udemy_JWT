@@ -18,7 +18,7 @@ const login = asyncWrapper(async(req,res)=>{
         if(isMatched){
             const token = jwt.sign({id:userExists._id,email:userExists.email},jwtSecret,{expiresIn:'1d'});
             res.cookie('jwtToken', token, {
-                httpOnly: true,
+                httpOnly: false,
                 secure: process.env.NODE_ENV === 'production',
                 maxAge: 24 * 60 * 60 * 1000,
               })
@@ -50,7 +50,7 @@ const signUp = asyncWrapper (async(req,res)=>{
 
 const verifiedUser= asyncWrapper(async(req,res)=>{
     const user = req.user;
-    return res.status(200).json({ user: user });
+    return res.status(200).json({ message:"Authenticated User!", user: user });
 })
 
 export {login,signUp,verifiedUser}

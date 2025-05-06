@@ -5,6 +5,11 @@ const jwtSecret = process.env.JWT_SECRET;
 
 const tokenCheck = asyncWrapper(async (req, res, next) => {
     const authHeader = req.headers.authorization;
+    const cookie = req.headers.cookie;
+
+    const JwtToken = cookie.split("=")[1];
+    console.log(JwtToken);
+
 
     if (!authHeader) {
         return res.status(401).json({ message: "Unauthorized User" });
