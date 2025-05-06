@@ -50,18 +50,6 @@ const signUp = asyncWrapper (async(req,res)=>{
 
 const verifiedUser= asyncWrapper(async(req,res)=>{
     const {email} = req.body;
-   const authHeader = req.headers.authorization;
-
-   
-
-    const token = authHeader.split(' ')[1];
-
-    console.log(token);
-
-    const decodedToken =  jwt.verify(token,jwtSecret);
-    console.log(decodedToken);
-    
-
     return res.status(200).json({ email });
 })
 
