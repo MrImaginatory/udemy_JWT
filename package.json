@@ -1,7 +1,7 @@
 {
-  "name": "nodebackendstartertemplate",
+  "name": "udemy_jwt",
   "version": "1.0.0",
-  "description": "A folder preset structure of nodejs backend and some default nodemodules for express_application",
+  "description": "An Application For JWT TOkens",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MrImaginatory/nodeBackendStarterTemplate.git"
+    "url": "git+https://github.com/MrImaginatory/udemy_jwt.git"
   },
   "author": "MrImaginatory",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MrImaginatory/nodeBackendStarterTemplate/issues"
+    "url": "https://github.com/MrImaginatory/udemy_jwt/issues"
   },
-  "homepage": "https://github.com/MrImaginatory/nodeBackendStarterTemplate#readme",
+  "homepage": "https://github.com/MrImaginatory/udemy_jwt#readme",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
