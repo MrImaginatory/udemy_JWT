@@ -49,8 +49,8 @@ const signUp = asyncWrapper (async(req,res)=>{
 })
 
 const verifiedUser= asyncWrapper(async(req,res)=>{
-    const {email} = req.body;
-    return res.status(200).json({ email });
+    const user = req.user;
+    return res.status(200).json({ user: user });
 })
 
 export {login,signUp,verifiedUser}
